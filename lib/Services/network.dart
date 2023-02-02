@@ -17,3 +17,18 @@ class StatsDataServices {
     }
   }
 }
+
+//hit api without creating model
+class CountriesStatsDataServices {
+  Future<List<dynamic>> getcountriesdata() async {
+    final data;
+    final response =
+        await http.get(Uri.parse(Api.baseurl + Api.countryendpoint));
+    if (response.statusCode == 200) {
+      data = jsonDecode(response.body);
+      return data;
+    } else {
+      throw Exception("error");
+    }
+  }
+}

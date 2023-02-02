@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class MyDataRow extends StatelessWidget {
   final String title;
-  final int value;
+  final String value;
   const MyDataRow({
     Key? key,
     required this.title,
@@ -23,7 +23,7 @@ class MyDataRow extends StatelessWidget {
               style: TextStyle(fontSize: 18),
             ),
             Text(
-              value.toString(),
+              value,
               style: TextStyle(fontSize: 18),
             )
           ],

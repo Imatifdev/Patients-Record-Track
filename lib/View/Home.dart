@@ -1,7 +1,8 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:patientstrack/Models/DataModel.dart';
+import 'package:patientstrack/View/world.dart';
 import 'package:pie_chart/pie_chart.dart';
 
 import '../Services/network.dart';
@@ -30,6 +31,7 @@ class _StatsState extends State<Stats> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     StatsDataServices PatientStats = StatsDataServices();
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: Column(
@@ -70,20 +72,44 @@ class _StatsState extends State<Stats> with TickerProviderStateMixin {
                           ),
                           MyDataRow(
                             title: 'Total',
-                            value: 3000,
+                            value: snapshot.data!.cases.toString(),
                           ),
                           MyDataRow(
                             title: 'Died',
-                            value: 1200,
+                            value: snapshot.data!.deaths.toString(),
                           ),
                           MyDataRow(
-                            title: 'Recovered',
-                            value: 1700,
+                            title: 'Active Per Million',
+                            value:
+                                snapshot.data!.activePerOneMillion.toString(),
+                          ),
+                          MyDataRow(
+                            title: 'Crticial',
+                            value: snapshot.data!.critical.toString(),
+                          ),
+                          MyDataRow(
+                            title: 'Affected Countries',
+                            value: snapshot.data!.affectedCountries.toString(),
+                          ),
+                          MyDataRow(
+                            title: 'Cases Per Million',
+                            value: snapshot.data!.casesPerOneMillion.toString(),
+                          ),
+                          MyDataRow(
+                            title: 'Deaths Per Million',
+                            value:
+                                snapshot.data!.deathsPerOneMillion.toString(),
                           ),
                           SizedBox(
                             height: 30,
                           ),
                           InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => WorldRecords()));
+                            },
                             highlightColor: Colors.black,
                             child: Container(
                               height: 50,
