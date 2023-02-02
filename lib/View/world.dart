@@ -1,6 +1,7 @@
-// ignore_for_file: prefer_const_constructors, unused_local_variable, sort_child_properties_last
+// ignore_for_file: prefer_const_constructors, unused_local_variable, sort_child_properties_last, prefer_interpolation_to_compose_strings
 
 import 'package:flutter/material.dart';
+import 'package:patientstrack/View/Details.dart';
 
 import '../Services/network.dart';
 import 'package:shimmer/shimmer.dart';
@@ -45,6 +46,7 @@ class _WorldRecordsState extends State<WorldRecords> {
               child: FutureBuilder(
                   future: countriesstats.getcountriesdata(),
                   builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
+                    print(snapshot);
                     if (!snapshot.hasData) {
                       return Shimmer.fromColors(
                           child: ListView.builder(
@@ -59,7 +61,7 @@ class _WorldRecordsState extends State<WorldRecords> {
                                         color: Colors.black,
                                       ),
                                       leading: Container(
-                                        height: 20,
+                                        height: 50,
                                         width: 70,
                                         color: Colors.black,
                                       ),
@@ -82,15 +84,51 @@ class _WorldRecordsState extends State<WorldRecords> {
                             if (searchcontroller.text.isEmpty) {
                               return Column(
                                 children: [
-                                  ListTile(
-                                    title: Text(snapshot.data![index]['country']
-                                        .toString()),
-                                    leading: Image(
-                                      height: 50,
-                                      width: 50,
-                                      fit: BoxFit.contain,
-                                      image: NetworkImage(snapshot.data![index]
-                                          ['countryInfo']['flag']),
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  DetailScreen(
+                                                    image: snapshot.data![index]
+                                                        ['countryInfo']['flag'],
+                                                    name: snapshot.data![index]
+                                                        ['country'],
+                                                    totalCases: snapshot
+                                                        .data![index]['cases'],
+                                                    totalRecovered:
+                                                        snapshot.data![index]
+                                                            ['recovered'],
+                                                    totalDeaths: snapshot
+                                                        .data![index]['deaths'],
+                                                    active: snapshot
+                                                        .data![index]['active'],
+                                                    test: snapshot.data![index]
+                                                        ['tests'],
+                                                    todayRecovered:
+                                                        snapshot.data![index]
+                                                            ['todayRecovered'],
+                                                    critical:
+                                                        snapshot.data![index]
+                                                            ['critical'],
+                                                  )));
+                                    },
+                                    child: ListTile(
+                                      title: Text(snapshot.data![index]
+                                              ['country']
+                                          .toString()),
+                                      subtitle: Text(snapshot.data![index]
+                                              ['cases']
+                                          .toString()),
+                                      leading: Image(
+                                        height: 50,
+                                        width: 50,
+                                        fit: BoxFit.contain,
+                                        image: NetworkImage(
+                                            snapshot.data![index]['countryInfo']
+                                                ['flag']),
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -99,21 +137,57 @@ class _WorldRecordsState extends State<WorldRecords> {
                                 searchcontroller.text.toLowerCase())) {
                               return Column(
                                 children: [
-                                  ListTile(
-                                    title: Text(snapshot.data![index]['country']
-                                        .toString()),
-                                    leading: Image(
-                                      height: 50,
-                                      width: 50,
-                                      fit: BoxFit.contain,
-                                      image: NetworkImage(snapshot.data![index]
-                                          ['countryInfo']['flag']),
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  DetailScreen(
+                                                    image: snapshot.data![index]
+                                                        ['countryInfo']['flag'],
+                                                    name: snapshot.data![index]
+                                                        ['country'],
+                                                    totalCases: snapshot
+                                                        .data![index]['cases'],
+                                                    totalRecovered:
+                                                        snapshot.data![index]
+                                                            ['recovered'],
+                                                    totalDeaths: snapshot
+                                                        .data![index]['deaths'],
+                                                    active: snapshot
+                                                        .data![index]['active'],
+                                                    test: snapshot.data![index]
+                                                        ['tests'],
+                                                    todayRecovered:
+                                                        snapshot.data![index]
+                                                            ['todayRecovered'],
+                                                    critical:
+                                                        snapshot.data![index]
+                                                            ['critical'],
+                                                  )));
+                                    },
+                                    child: ListTile(
+                                      leading: Image(
+                                        height: 50,
+                                        width: 50,
+                                        image: NetworkImage(
+                                            snapshot.data![index]['countryInfo']
+                                                ['flag']),
+                                      ),
+                                      title: Text(
+                                          snapshot.data![index]['country']),
+                                      subtitle: Text("Effected: " +
+                                          snapshot.data![index]['cases']
+                                              .toString()),
                                     ),
                                   ),
+                                  Divider()
                                 ],
                               );
-                            } else {}
-                            return Text("data");
+                            } else {
+                              return Container();
+                            }
                           });
                     }
                   }))
