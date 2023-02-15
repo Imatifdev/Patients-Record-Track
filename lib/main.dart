@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 import 'View/Home.dart';
+import 'View/splash.dart';
 import 'View/world.dart';
 
 void main() {
@@ -16,7 +17,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Stats(),
+      home: WorldRecords(),
     );
   }
 }

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
 import 'package:patientstrack/View/Home.dart';
+import 'package:patientstrack/View/world.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -27,13 +28,13 @@ class _SplashScreenState extends State<SplashScreen>
     _controller.dispose();
   }
 
-  void initstate() {
+  void initState() {
+    // TODO: implement initState
     super.initState();
-
     Timer(
-        Duration(seconds: 3),
+        const Duration(seconds: 5),
         () => Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Stats())));
+            context, MaterialPageRoute(builder: (context) => WorldRecords())));
   }
 
   @override
